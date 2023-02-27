@@ -28,7 +28,7 @@ class Lab1Functions {
     if (num === 0) return 1;
     return num * this.factorial(num - 1);
   }
-  mostFrequentElement(arr: Array<number>) : number | undefined{
+  mostFrequentElement(arr: Array<number>): number | undefined {
     return arr
       .sort(
         (a, b) =>
@@ -36,10 +36,31 @@ class Lab1Functions {
       )
       .pop();
   }
+
+  quickSort(arr: number[]): number[] {
+    if (arr.length <= 1) {
+      return arr;
+    }
+
+    const pivot = arr[0];
+    const leftArr: number[] = [];
+    const rightArr: number[] = [];
+
+    for (let i = 1; i < arr.length; i++) {
+      if (arr[i] < pivot) {
+        leftArr.push(arr[i]);
+      } else {
+        rightArr.push(arr[i]);
+      }
+    }
+
+    return [...this.quickSort(leftArr), pivot, ...this.quickSort(rightArr)];
+  }
 }
 
 let laba = new Lab1Functions();
 laba.splitStringByWords("Bohdan Anton Somethin And More");
 laba.AllPermutations("Bohdan");
 console.log(laba.factorial(5));
-console.log(laba.mostFrequentElement([11,2,3,6,7,6,11,11,8]));
+console.log(laba.mostFrequentElement([11, 2, 3, 6, 7, 6, 11, 11, 8]));
+console.log(laba.quickSort([11, 2, 3, 8, 8, 8, 89, 4, 1, 1, 2]));
