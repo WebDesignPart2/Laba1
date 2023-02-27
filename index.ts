@@ -24,9 +24,17 @@ class Lab1Functions {
       }
     }
   }
-  factorial(num: number) : number {
+  factorial(num: number): number {
     if (num === 0) return 1;
     return num * this.factorial(num - 1);
+  }
+  mostFrequentElement(arr: Array<number>) : number | undefined{
+    return arr
+      .sort(
+        (a, b) =>
+          arr.filter((v) => v === a).length - arr.filter((v) => v === b).length
+      )
+      .pop();
   }
 }
 
@@ -34,3 +42,4 @@ let laba = new Lab1Functions();
 laba.splitStringByWords("Bohdan Anton Somethin And More");
 laba.AllPermutations("Bohdan");
 console.log(laba.factorial(5));
+console.log(laba.mostFrequentElement([11,2,3,6,7,6,11,11,8]));
