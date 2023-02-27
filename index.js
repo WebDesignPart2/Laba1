@@ -22,7 +22,13 @@ class Lab1Functions {
             }
         }
     }
+    factorial(num) {
+        if (num === 0)
+            return 1;
+        return num * this.factorial(num - 1);
+    }
 }
 let laba = new Lab1Functions();
 laba.splitStringByWords("Bohdan Anton Somethin And More");
 laba.AllPermutations("Bohdan");
+console.log(laba.factorial(5));
