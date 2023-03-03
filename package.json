@@ -1,7 +1,6 @@
 {
   "name": "laba1",
   "version": "1.0.0",
-  "description": "",
   "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -15,5 +14,15 @@
   "bugs": {
     "url": "https://github.com/WebDesignPart2/Laba1/issues"
   },
-  "homepage": "https://github.com/WebDesignPart2/Laba1#readme"
+  "homepage": "https://github.com/WebDesignPart2/Laba1#readme",
+  "devDependencies": {
+    "@types/node": "^18.14.2",
+    "@types/prompt-sync": "^4.2.0"
+  },
+  "dependencies": {
+    "prompt-sync": "^4.2.0",
+    "custom_module": "file:custom_module"
+  },
+  "keywords": [],
+  "description": ""
 }

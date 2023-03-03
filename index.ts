@@ -1,3 +1,10 @@
+import promptSync from "prompt-sync";
+import { Train } from "../лаба 1/custom_module/Train";
+import { Ticket, Soled, NonSoled } from "./custom_module/ticket";
+import { Passager } from "./custom_module/passager";
+
+const prompter = promptSync();
+
 class Lab1Functions {
   splitStringByWords(inputStr: string) {
     let names: Array<string> = inputStr.split(" ");
@@ -58,9 +65,74 @@ class Lab1Functions {
   }
 }
 
-let laba = new Lab1Functions();
-laba.splitStringByWords("Bohdan Anton Somethin And More");
-laba.AllPermutations("Bohdan");
-console.log(laba.factorial(5));
-console.log(laba.mostFrequentElement([11, 2, 3, 6, 7, 6, 11, 11, 8]));
-console.log(laba.quickSort([11, 2, 3, 8, 8, 8, 89, 4, 1, 1, 2]));
+function main() {
+  let laba = new Lab1Functions();
+  let choice: string = prompter("Enter task number: ");
+  while (choice !== "0") {
+    switch (choice) {
+      case "1":
+        laba.splitStringByWords("Bohdan andrii petro sergiy slslslls");
+        break;
+      case "2":
+        laba.AllPermutations("Break");
+        break;
+      case "3":
+        console.log(laba.factorial(6));
+        break;
+      case "4":
+        console.log(
+          laba.mostFrequentElement([1, 1, 2, 3, 6, 7, 8, 2, 2, 2, 3])
+        );
+        break;
+      case "5":
+        break;
+      case "6":
+        console.log(laba.quickSort([5, 6, 7, 8, 9, 2, 11, 1]));
+        break;
+      case "7":
+        task_7();
+        break;
+      default:
+        console.log("Wrong choice");
+        break;
+    }
+    choice = prompter("Enter task number: ");
+  }
+}
+
+function task_7() {
+  let trains: Array<Train> = new Array<Train>();
+  trains.push(new Train("If - Kyiv"));
+  trains.push(new Train("If - Lviv"));
+  trains.push(new Train("Lviv - Ternopil"));
+  let passager = new Passager("Sergiy");
+  passager.buyTicket(trains[0]);
+  passager.buyTicket(trains[1]);
+
+  let train = serachTrainByName("If - Kyiv", trains);
+  train.print();
+  let findPas = train.searchPassager("Sergiy");
+  findPas?.print();
+}
+
+function serachTrainByName(trainName: string, trains: Array<Train>): Train {
+  let searchTrain = trains
+    .filter((train) => train.raceName === trainName)
+    .pop();
+  if (searchTrain === undefined) {
+    throw new Error('No Train with this name');
+  }
+  return searchTrain;
+}
+
+function maxBy<T>(arr: T[], fn: (x: T) => number): T | undefined {
+  return arr.reduce((acc, curr) => {
+    const currValue = fn(curr);
+    return currValue > fn(acc) ? curr : acc;
+  }, arr[0]);
+}
+
+function mustPopularTrain(trains : Array<Train>) : Train | undefined{ 
+  return maxBy(trains, (train) => train.passagersCount());
+}
+main();

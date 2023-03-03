@@ -1,4 +1,12 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const prompt_sync_1 = __importDefault(require("prompt-sync"));
+const Train_1 = require("../\u043B\u0430\u0431\u0430 1/custom_module/Train");
+const passager_1 = require("./custom_module/passager");
+const prompter = (0, prompt_sync_1.default)();
 class Lab1Functions {
     splitStringByWords(inputStr) {
         let names = inputStr.split(" ");
@@ -50,9 +58,67 @@ class Lab1Functions {
         return [...this.quickSort(leftArr), pivot, ...this.quickSort(rightArr)];
     }
 }
-let laba = new Lab1Functions();
-laba.splitStringByWords("Bohdan Anton Somethin And More");
-laba.AllPermutations("Bohdan");
-console.log(laba.factorial(5));
-console.log(laba.mostFrequentElement([11, 2, 3, 6, 7, 6, 11, 11, 8]));
-console.log(laba.quickSort([11, 2, 3, 8, 8, 8, 89, 4, 1, 1, 2]));
+function main() {
+    let laba = new Lab1Functions();
+    let choice = prompter("Enter task number: ");
+    while (choice !== "0") {
+        switch (choice) {
+            case "1":
+                laba.splitStringByWords("Bohdan andrii petro sergiy slslslls");
+                break;
+            case "2":
+                laba.AllPermutations("Break");
+                break;
+            case "3":
+                console.log(laba.factorial(6));
+                break;
+            case "4":
+                console.log(laba.mostFrequentElement([1, 1, 2, 3, 6, 7, 8, 2, 2, 2, 3]));
+                break;
+            case "5":
+                break;
+            case "6":
+                console.log(laba.quickSort([5, 6, 7, 8, 9, 2, 11, 1]));
+                break;
+            case "7":
+                task_7();
+                break;
+            default:
+                console.log("Wrong choice");
+                break;
+        }
+        choice = prompter("Enter task number: ");
+    }
+}
+function task_7() {
+    let trains = new Array();
+    trains.push(new Train_1.Train("If - Kyiv"));
+    trains.push(new Train_1.Train("If - Lviv"));
+    trains.push(new Train_1.Train("Lviv - Ternopil"));
+    let passager = new passager_1.Passager("Sergiy");
+    passager.buyTicket(trains[0]);
+    passager.buyTicket(trains[1]);
+    let train = serachTrainByName("If - Kyiv", trains);
+    train.print();
+    let findPas = train.searchPassager("Sergiy");
+    findPas === null || findPas === void 0 ? void 0 : findPas.print();
+}
+function serachTrainByName(trainName, trains) {
+    let searchTrain = trains
+        .filter((train) => train.raceName === trainName)
+        .pop();
+    if (searchTrain === undefined) {
+        throw new Error('No Train with this name');
+    }
+    return searchTrain;
+}
+function maxBy(arr, fn) {
+    return arr.reduce((acc, curr) => {
+        const currValue = fn(curr);
+        return currValue > fn(acc) ? curr : acc;
+    }, arr[0]);
+}
+function mustPopularTrain(trains) {
+    return maxBy(trains, (train) => train.passagersCount());
+}
+main();
