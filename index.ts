@@ -44,7 +44,6 @@ class Lab1Functions {
       )
       .pop();
   }
-
   quickSort(arr: number[]): number[] {
     if (arr.length <= 1) {
       return arr;
@@ -63,6 +62,9 @@ class Lab1Functions {
     }
 
     return [...this.quickSort(leftArr), pivot, ...this.quickSort(rightArr)];
+  }
+  getDaysInMonth(year:number, month:number):number {
+    return new Date(year, month, 0).getDate();
   }
 }
 
@@ -86,6 +88,7 @@ function main() {
         );
         break;
       case "5":
+        console.log(laba.getDaysInMonth(2004, 1));
         break;
       case "6":
         console.log(laba.quickSort([5, 6, 7, 8, 9, 2, 11, 1]));

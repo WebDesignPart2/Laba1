@@ -58,6 +58,9 @@ class Lab1Functions {
         }
         return [...this.quickSort(leftArr), pivot, ...this.quickSort(rightArr)];
     }
+    getDaysInMonth(year, month) {
+        return new Date(year, month, 0).getDate();
+    }
 }
 function main() {
     let laba = new Lab1Functions();
@@ -77,6 +80,7 @@ function main() {
                 console.log(laba.mostFrequentElement([1, 1, 2, 3, 6, 7, 8, 2, 2, 2, 3]));
                 break;
             case "5":
+                console.log(laba.getDaysInMonth(2004, 1));
                 break;
             case "6":
                 console.log(laba.quickSort([5, 6, 7, 8, 9, 2, 11, 1]));
