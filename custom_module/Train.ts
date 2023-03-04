@@ -14,10 +14,18 @@ export class Train {
       pas.print();
     });
   }
-  passagersCount() : number{
+  passagersCount(): number {
     return this.passagers.length;
   }
   searchPassager(passagerName: string): Passager | undefined {
     return this.passagers.filter((pas) => pas.name === passagerName).pop();
   }
+  ChangePassager(oldPassagerName: string, newPassagerName: string): void {
+    let passager = this.searchPassager(oldPassagerName);
+    if (passager === undefined) throw new Error("No passager");
+
+    let id = this.passagers.indexOf(passager);
+    this.passagers[id].name = newPassagerName;
+  }
 }
+

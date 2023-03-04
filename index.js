@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const prompt_sync_1 = __importDefault(require("prompt-sync"));
 const Train_1 = require("../\u043B\u0430\u0431\u0430 1/custom_module/Train");
 const passager_1 = require("./custom_module/passager");
+const TrainService_1 = require("../\u043B\u0430\u0431\u0430 1/custom_module/TrainService");
 const prompter = (0, prompt_sync_1.default)();
 class Lab1Functions {
     splitStringByWords(inputStr) {
@@ -91,34 +92,16 @@ function main() {
     }
 }
 function task_7() {
-    let trains = new Array();
-    trains.push(new Train_1.Train("If - Kyiv"));
-    trains.push(new Train_1.Train("If - Lviv"));
-    trains.push(new Train_1.Train("Lviv - Ternopil"));
+    let trainService = new TrainService_1.TrainService();
+    trainService.Add(new Train_1.Train("If - Kyiv"));
+    trainService.Add(new Train_1.Train("If - Lviv"));
+    trainService.Add(new Train_1.Train("Lviv - Ternopil"));
     let passager = new passager_1.Passager("Sergiy");
-    passager.buyTicket(trains[0]);
-    passager.buyTicket(trains[1]);
-    let train = serachTrainByName("If - Kyiv", trains);
+    passager.buyTicket(trainService.serachTrainByName("If - Kyiv"));
+    let train = trainService.serachTrainByName("If - Kyiv");
     train.print();
+    train.ChangePassager("Sergiy", "Bohdan");
     let findPas = train.searchPassager("Sergiy");
     findPas === null || findPas === void 0 ? void 0 : findPas.print();
-}
-function serachTrainByName(trainName, trains) {
-    let searchTrain = trains
-        .filter((train) => train.raceName === trainName)
-        .pop();
-    if (searchTrain === undefined) {
-        throw new Error('No Train with this name');
-    }
-    return searchTrain;
-}
-function maxBy(arr, fn) {
-    return arr.reduce((acc, curr) => {
-        const currValue = fn(curr);
-        return currValue > fn(acc) ? curr : acc;
-    }, arr[0]);
-}
-function mustPopularTrain(trains) {
-    return maxBy(trains, (train) => train.passagersCount());
 }
 main();

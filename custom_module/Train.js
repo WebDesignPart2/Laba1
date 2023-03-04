@@ -24,5 +24,12 @@ class Train {
     searchPassager(passagerName) {
         return this.passagers.filter((pas) => pas.name === passagerName).pop();
     }
+    ChangePassager(oldPassagerName, newPassagerName) {
+        let passager = this.searchPassager(oldPassagerName);
+        if (passager === undefined)
+            throw new Error("No passager");
+        let id = this.passagers.indexOf(passager);
+        this.passagers[id].name = newPassagerName;
+    }
 }
 exports.Train = Train;

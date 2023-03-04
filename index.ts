@@ -2,6 +2,7 @@ import promptSync from "prompt-sync";
 import { Train } from "../лаба 1/custom_module/Train";
 import { Ticket, Soled, NonSoled } from "./custom_module/ticket";
 import { Passager } from "./custom_module/passager";
+import { TrainService } from "../лаба 1/custom_module/TrainService";
 
 const prompter = promptSync();
 
@@ -101,38 +102,19 @@ function main() {
 }
 
 function task_7() {
-  let trains: Array<Train> = new Array<Train>();
-  trains.push(new Train("If - Kyiv"));
-  trains.push(new Train("If - Lviv"));
-  trains.push(new Train("Lviv - Ternopil"));
+  let trainService = new TrainService();
+  trainService.Add(new Train("If - Kyiv"));
+  trainService.Add(new Train("If - Lviv"));
+  trainService.Add(new Train("Lviv - Ternopil"));
   let passager = new Passager("Sergiy");
-  passager.buyTicket(trains[0]);
-  passager.buyTicket(trains[1]);
 
-  let train = serachTrainByName("If - Kyiv", trains);
+  passager.buyTicket(trainService.serachTrainByName("If - Kyiv"));
+
+  let train = trainService.serachTrainByName("If - Kyiv");
   train.print();
+  train.ChangePassager("Sergiy", "Bohdan");
   let findPas = train.searchPassager("Sergiy");
   findPas?.print();
 }
 
-function serachTrainByName(trainName: string, trains: Array<Train>): Train {
-  let searchTrain = trains
-    .filter((train) => train.raceName === trainName)
-    .pop();
-  if (searchTrain === undefined) {
-    throw new Error('No Train with this name');
-  }
-  return searchTrain;
-}
-
-function maxBy<T>(arr: T[], fn: (x: T) => number): T | undefined {
-  return arr.reduce((acc, curr) => {
-    const currValue = fn(curr);
-    return currValue > fn(acc) ? curr : acc;
-  }, arr[0]);
-}
-
-function mustPopularTrain(trains : Array<Train>) : Train | undefined{ 
-  return maxBy(trains, (train) => train.passagersCount());
-}
 main();
