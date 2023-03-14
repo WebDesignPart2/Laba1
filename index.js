@@ -8,6 +8,7 @@ const Train_1 = require("../\u043B\u0430\u0431\u0430 1/custom_module/Train");
 const passager_1 = require("./custom_module/passager");
 const TrainService_1 = require("../\u043B\u0430\u0431\u0430 1/custom_module/TrainService");
 const prompter = (0, prompt_sync_1.default)();
+
 class Lab1Functions {
     splitStringByWords(inputStr) {
         let names = inputStr.split(" ");
